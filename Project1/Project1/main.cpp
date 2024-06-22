@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "score.h"
 #include "Key.h"
+#include "Sounds.h"
 
 
 
@@ -21,6 +22,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	{
 		return -1;			
 	}
+	if (LoadSoundMem() == -1) return -1;
 	unsigned int BorderCol = GetColor(255, 255, 255);
 
 	
@@ -50,7 +52,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 
 					
-
+	DeleteSoundMem();
 	DxLib_End();				
 
 	return 0;				

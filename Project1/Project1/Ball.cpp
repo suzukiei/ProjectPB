@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include "bll.h"
 #include "score.h"
+#include "Sounds.h"
 
 BOOL VXVY;
 
@@ -30,7 +31,7 @@ VOID InitBall(BALL& ball,int startx,int starty,int startVx,int startVy,int radiu
 
 }
 
-
+//É{Å[ÉãÇ∆ï«ÇÃîªíË
 VOID UpdateBall(BALL& ball, int screenWidth, int screenHeight,SCORE& leftScore,SCORE& rightScore)
 {
 	ball.x += ball.vx;
@@ -39,6 +40,8 @@ VOID UpdateBall(BALL& ball, int screenWidth, int screenHeight,SCORE& leftScore,S
 	// ï«Ç…è’ìÀÇµÇΩèÍçáÇÃîΩéÀ
 	if (ball.x - ball.radius < 0 || ball.x + ball.radius > screenWidth) {
 		ball.vx = -ball.vx;
+		
+		SE_Score();
 
 		if (ball.x - ball.radius < 0)
 		{

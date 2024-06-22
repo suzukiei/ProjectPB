@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include "padlle.h"
 #include "bll.h"
+#include "Sounds.h"
 
 
 //‰Šú‰»
@@ -43,6 +44,7 @@ VOID DrawPaddle(const PADDLE& paddle)
 
 }
 
+//ƒpƒhƒ‹‚Æ‚Ì“–‚½‚è”»’è
 VOID CheckPaddleCollision(BALL& ball,const PADDLE& paddle)
 {
 	if (ball.x - ball.radius < paddle.x + paddle.width &&
@@ -51,6 +53,8 @@ VOID CheckPaddleCollision(BALL& ball,const PADDLE& paddle)
 		ball.y + ball.radius > paddle.y)
 	{
 		ball.vx = -ball.vx;
+
+		SE_Paddle();
 
 		if (ball.vx > 0)
 		{
