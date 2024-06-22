@@ -3,11 +3,11 @@
 #include "padlle.h"
 #include "Scene.h"
 #include "score.h"
+#include "Key.h"
 
-#define WINDOW_HEIGHT 480
-#define WINDOW_WIDTH 640
 
-int NowScene = inGame;
+
+int NowScene = inMenu;
 SCORE leftScore, rightScore;
 BALL ball;
 PADDLE leftpaddle, rightpaddle;
@@ -31,33 +31,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SetGraphMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32);
 
-	
+	int frameCount = 0;
 
 
-	while (ProcessMessage() == 0)
+	//プロセスメッセージと同じくしてキー入力の取得をする #1回の入力で1回のみ受け取るため#
+	while (ProcessMessage() == 0 && UpdateKeys() == 0)
 	{
 		ClearDrawScreen();
 
-		
-		DrawLine(0, 0, 0, 480, BorderCol); //左
-		DrawLine(640, 0, 640, 480, BorderCol);//右
+		frameCount++;
+				
+		Scene(NowScene, ball,leftpaddle,rightpaddle,leftScore,rightScore,frameCount);
 
-		ChangeScene(NowScene, KEY_INPUT_ESCAPE);
-
-		UpdateBall(ball, WINDOW_WIDTH,WINDOW_HEIGHT,leftScore,rightScore);
-		UpdatePaddle(leftpaddle, KEY_INPUT_W, KEY_INPUT_S,WINDOW_HEIGHT);
-		UpdatePaddle(rightpaddle, KEY_INPUT_UP,KEY_INPUT_DOWN,WINDOW_HEIGHT);
-		
-		CheckPaddleCollision(ball, leftpaddle);
-		CheckPaddleCollision(ball, rightpaddle);
-
-		DrawBall(ball);
-		//DrawBallOutline(ball, GetColor(0, 255, 0)); debug用
-		DrawPaddle(leftpaddle);
-		DrawPaddle(rightpaddle);
-		DrawScore(leftScore.points, rightScore.points);
-		
-		
 		DebugMode(ball, leftpaddle);
 
 		ScreenFlip();
@@ -75,7 +60,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 VOID Init(BALL& ball,PADDLE& leftpaddle,PADDLE& rightpaddle) {
 
 		
-	InitBall(ball, 320, 240, 5, 5, 5, GetColor(255, 0, 0)); // 中心、移動速度、半径、色
+	InitBall(ball, 320, 240, 3, 3, 5, GetColor(255, 0, 0)); // 中心、移動速度、半径、色
 
 	
 	InitPaddle(leftpaddle, 50, 200, 60, 10, GetColor(255, 255, 255));

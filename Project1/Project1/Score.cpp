@@ -11,5 +11,5 @@ VOID DrawScore(int leftscore,int rightscore)
 
 	str = to_string(rightscore);
 
-	DrawString(640 - 10, 60, str.c_str(), GetColor(255, 255, 255));
+	DrawString(640 - 20, 60, str.c_str(), GetColor(255, 255, 255));
 }
