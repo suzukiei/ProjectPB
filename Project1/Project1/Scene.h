@@ -9,6 +9,7 @@ enum ScenE
 	inMenu,
 	inGame,
 	inDebug,
+	inSetting,
 	inEnd
 };
 
@@ -16,6 +17,7 @@ enum SelectMenu
 {
 	START,
 	END,
+	SETTING,
 	DEBUG
 };
 extern int NowScene;
@@ -26,4 +28,5 @@ VOID Scene(int SceneNumber, BALL& ball, PADDLE& leftpaddle, PADDLE& rightpaddle,
 VOID DrawStartMenu(SelectMenu selectedItem,int framecount);
 VOID DrawGame(BALL& ball, PADDLE& leftpaddle, PADDLE& rightpaddle, SCORE& leftScore, SCORE& rightScore);
 VOID UpdateStartMenu(SelectMenu& selectedItem);
+VOID DrawSetting(int volume);
 VOID ApplyMosaicEffect();

@@ -3,9 +3,11 @@
 #include "bll.h"
 #include "padlle.h"
 #include "Key.h"
+#include "Sounds.h"
 #include <string>
 
 using namespace std;
+int volume = 100;
 
 
 VOID Scene(int SceneNumber, BALL& ball, PADDLE& leftpaddle, PADDLE& rightpaddle, SCORE& leftScore, SCORE& rightScore,int framecount)
@@ -24,6 +26,10 @@ VOID Scene(int SceneNumber, BALL& ball, PADDLE& leftpaddle, PADDLE& rightpaddle,
 	case inDebug:
 		DebugMode(ball,leftpaddle);
 		break;
+	case inSetting:
+		DrawSetting(volume);
+		break;
+
 	case inEnd:
 		break;
 
@@ -63,17 +69,9 @@ VOID DrawStartMenu(SelectMenu selectedItem,int frameCount)
 	int startY = WINDOW_HEIGHT / 2 - 20;
 	int endY = startY + 40;
 
-	//// グラデーションの色を計算
-	//int r = (int)(127.5 * (1 + sin(frameCount * 2 * DX_PI / 60)));
-	//int g = (int)(127.5 * (1 + sin(frameCount * 2 * DX_PI / 60 + 2 * DX_PI / 3)));
-	//int b = (int)(127.5 * (1 + sin(frameCount * 2 * DX_PI / 60 + 4 * DX_PI / 3)));
-	//unsigned int color = GetColor(r, g, b);
-
-
-	//DrawString(WINDOW_WIDTH / 2 - 50, WINDOW_HEIGHT / 2 - 60, "PONPINBON", color);
-
 	DrawString(startX, startY, "START", selectedItem == 0 ? GetColor(255, 0, 0) : GetColor(255, 255, 255));
-	DrawString(startX, endY, "END", selectedItem == 1 ? GetColor(255, 0, 0) : GetColor(255, 255, 255));
+	DrawString(startX, startY + 30, "SETTING", selectedItem == 2 ? GetColor(255, 0, 0) : GetColor(255, 255, 255));
+	DrawString(startX, endY + 20, "END", selectedItem == 1 ? GetColor(255, 0, 0) : GetColor(255, 255, 255));
 
 }
 
@@ -100,11 +98,11 @@ VOID UpdateStartMenu(SelectMenu& selectedItem)
 
 	if (Key[KEY_INPUT_DOWN] == 1)
 	{
-		selectedItem = (selectedItem == START) ? END : START;
+		selectedItem = (selectedItem == START) ? SETTING : (selectedItem == SETTING) ? END : START;
 	}
 	if(Key[KEY_INPUT_UP] == 1)
 	{
-		selectedItem = (selectedItem == END) ? START : END;
+		selectedItem = (selectedItem == START) ? END: (selectedItem == END) ? SETTING : START;
 	}
 	if (Key[KEY_INPUT_ESCAPE] == 1)
 	{
@@ -121,9 +119,40 @@ VOID UpdateStartMenu(SelectMenu& selectedItem)
 			DxLib_End();
 			exit(0);
 		}
+		else if (selectedItem == SETTING)
+		{
+			ChangeScene(inSetting);
+		}
 	}
 }
 
+VOID DrawSetting(int GetVolume)
+{
+	int startX = WINDOW_WIDTH / 2 - 50;
+	int startY = WINDOW_HEIGHT / 2 - 20;
+
+	//長押しでも音量を変更できるように
+	if (Key[KEY_INPUT_DOWN] == 1 || Key[KEY_INPUT_DOWN] >= 60)
+	{
+		GetVolume = GetVolume > 0 ? GetVolume - 1 : 0;
+	}
+	if (Key[KEY_INPUT_UP] == 1 || Key[KEY_INPUT_UP] >= 60)
+	{
+		GetVolume = GetVolume < 100 ? GetVolume + 1 : 100;
+	}
+
+	volume = GetVolume; // 現在の音量を更新
+	int dxVolume = volume * 255 / 100; 
+
+	ChangeVolumeSoundMem(dxVolume, PADDLESOUND.GetHandle());
+	ChangeVolumeSoundMem(dxVolume, SCORESOUND.GetHandle());
+
+	DrawFormatString(startX, startY, GetColor(255, 255, 255), "Volume: %d", volume);
+
+}
+
+
+//多分使用しない(重すぎるから)
 VOID ApplyMosaicEffect()
 {
 	

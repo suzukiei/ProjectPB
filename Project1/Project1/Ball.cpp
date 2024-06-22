@@ -37,22 +37,32 @@ VOID UpdateBall(BALL& ball, int screenWidth, int screenHeight,SCORE& leftScore,S
 	ball.x += ball.vx;
 	ball.y += ball.vy;
 	
-	// 壁に衝突した場合の反射
+	// 壁に衝突した場合の反射、そして速度をリセットする
 	if (ball.x - ball.radius < 0 || ball.x + ball.radius > screenWidth) {
+		
 		ball.vx = -ball.vx;
 		
 		SE_Score();
 
 		if (ball.x - ball.radius < 0)
 		{
-			leftScore.points += 1;
+			rightScore.points += 1;
+			ball.vx = 5;
+			ball.vy = (ball.vy > 0 ? 5 : -5);
+			
 		}
 		else if (ball.x + ball.radius > screenWidth)
 		{
-			rightScore.points += 1;
+			leftScore.points += 1;
+			ball.vx = -5;
+			ball.vy = (ball.vy > 0 ? 5 : -5);
+			
+
 		}
 	}
 	if (ball.y - ball.radius < 0 || ball.y + ball.radius > screenHeight) {
+		
+		
 		ball.vy = -ball.vy;
 	}
 
