@@ -55,7 +55,7 @@ VOID DebugMode(const BALL& ball, const PADDLE& paddle)
 		DrawString(10, 480 - 50, ("NowPPositionY" + to_string(paddle.y)).c_str(), GetColor(255, 255, 255));
 		DrawString(10, 480 - 30, ("KEY:" + to_string(Key[KEY_INPUT_DOWN])).c_str(), GetColor(255, 255, 255));
 	}
-	if (Key[KEY_INPUT_Q] == 1)
+	if (Key[KEY_INPUT_Q] == 1) //Ç«ÇÃâÊñ Ç©ÇÁÇ≈Ç‡MenuÇ…à⁄çsÇ≈Ç´ÇÈÇÊÇ§Ç…Ç∑ÇÈ
 	{
 		NowScene = inMenu;
 	}
