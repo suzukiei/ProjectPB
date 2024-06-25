@@ -4,6 +4,7 @@
 #include "padlle.h"
 #include "Key.h"
 #include "Sounds.h"
+#include "Proc.h"
 #include <string>
 
 using namespace std;
@@ -54,6 +55,7 @@ VOID DebugMode(const BALL& ball, const PADDLE& paddle)
 		DrawString(10, 480 - 70, ("NowPPositionX" + to_string(paddle.x)).c_str(), GetColor(255, 255, 255));
 		DrawString(10, 480 - 50, ("NowPPositionY" + to_string(paddle.y)).c_str(), GetColor(255, 255, 255));
 		DrawString(10, 480 - 30, ("KEY:" + to_string(Key[KEY_INPUT_DOWN])).c_str(), GetColor(255, 255, 255));
+		DrawFormatString(100, 100, GetColor(255, 255, 255), "FPS: %.2f", CalcFps);
 	}
 	if (Key[KEY_INPUT_Q] == 1) //Ç«ÇÃâÊñ Ç©ÇÁÇ≈Ç‡MenuÇ…à⁄çsÇ≈Ç´ÇÈÇÊÇ§Ç…Ç∑ÇÈ
 	{

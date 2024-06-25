@@ -5,6 +5,7 @@
 #include "score.h"
 #include "Key.h"
 #include "Sounds.h"
+#include "Proc.h"
 
 
 
@@ -12,6 +13,7 @@ int NowScene = inMenu;
 SCORE leftScore, rightScore;
 BALL ball;
 PADDLE leftpaddle, rightpaddle;
+
 
 VOID Init(BALL& ball, PADDLE& leftpaddle, PADDLE& rightpaddle);
 
@@ -39,15 +41,22 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//プロセスメッセージと同じくしてキー入力の取得をする #1回の入力で1回のみ受け取るため#
 	while (ProcessMessage() == 0 && UpdateKeys() == 0)
 	{
+		MY_FPS_UPDATE(); // FPSの更新
+
 		ClearDrawScreen();
 
 		frameCount++;
 				
 		Scene(NowScene, ball,leftpaddle,rightpaddle,leftScore,rightScore,frameCount);
 
+		
+
 		DebugMode(ball, leftpaddle);
 
+		MY_FPS_WAIT(); // FPSの制御
+
 		ScreenFlip();
+
 	}
 
 
