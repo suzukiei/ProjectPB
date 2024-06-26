@@ -55,6 +55,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		MY_FPS_WAIT(); // FPSÇÃêßå‰
 
+
+		
+
 		ScreenFlip();
 
 	}

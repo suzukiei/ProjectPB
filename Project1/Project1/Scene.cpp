@@ -79,6 +79,9 @@ VOID DrawStartMenu(SelectMenu selectedItem,int frameCount)
 
 VOID DrawGame(BALL& ball,PADDLE& leftpaddle,PADDLE& rightpaddle,SCORE& leftScore,SCORE& rightScore)
 {
+
+	TimeCount();
+
 	UpdateBall(ball, WINDOW_WIDTH, WINDOW_HEIGHT, leftScore, rightScore);
 	UpdatePaddle(leftpaddle, KEY_INPUT_W, KEY_INPUT_S, WINDOW_HEIGHT);
 	UpdatePaddle(rightpaddle, KEY_INPUT_UP, KEY_INPUT_DOWN, WINDOW_HEIGHT);
@@ -91,6 +94,8 @@ VOID DrawGame(BALL& ball,PADDLE& leftpaddle,PADDLE& rightpaddle,SCORE& leftScore
 	DrawPaddle(leftpaddle);
 	DrawPaddle(rightpaddle);
 	DrawScore(leftScore.points, rightScore.points);
+
+	
 
 
 }

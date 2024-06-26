@@ -4,12 +4,14 @@
 #define GAME_FPS 60
 
 extern const int SampleNumFps;
+extern const int DURATION;
 extern int CountFps;
 extern int StartTimeFps;
 extern float CalcFps;
 
 VOID MY_FPS_UPDATE(VOID);
 VOID MY_FPS_WAIT(VOID);
+VOID TimeCount(VOID);
 
 ////--------経過時間カウントクラス--------
 //class TIME_COUNT

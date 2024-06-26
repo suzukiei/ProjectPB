@@ -19,11 +19,11 @@ VOID UpdatePaddle(PADDLE& paddle,int upkey,int downkey,int ScHeight)
 {
 	if (CheckHitKey(upkey))
 	{
-		paddle.y -= 5;
+		paddle.y -= 7;
 	}
 	else if(CheckHitKey(downkey))
 	{
-		paddle.y += 5;
+		paddle.y += 7;
 	}
 
 	if (paddle.y < 0)
