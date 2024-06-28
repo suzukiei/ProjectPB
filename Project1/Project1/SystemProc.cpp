@@ -1,8 +1,9 @@
 #include "Dxlib.h"
 #include "Proc.h"
+#include "score.h"
 
 const int SampleNumFps = 60;
-const int DURATION = 120;
+const int DURATION = 10;
 int CountFps = 0;
 int StartTimeFps = 0;
 float CalcFps = 0.0f;
@@ -44,7 +45,7 @@ VOID MY_FPS_WAIT(VOID)
     return;
 }
 
-VOID TimeCount(VOID)
+VOID TimeCount(const int leftscore, const int rightscore,int framecount)
 {
         //開始時の時間を記録
     static int startTime = GetNowCount();
@@ -52,4 +53,19 @@ VOID TimeCount(VOID)
     int keikaTime = (frameStartTime - startTime) / 1000; // 経過時間（秒）
 
     DrawFormatString(200, 50, GetColor(255, 255, 255), "Time: %d / %d", keikaTime, DURATION);
+
+    //ゲーム終了　勝者を発表
+    if (keikaTime > DURATION)
+    {
+        int color = (framecount / 30) % 2 == 0 ? GetColor(255, 255, 255) : GetColor(0, 0, 0);
+
+        if (leftscore < rightscore)
+        {
+            DrawString(320 - 80, 240, "PLAYER RIGHT WIN!", color);
+        }
+        else
+        {
+            DrawString(320 - 80, 240, "PLAYER LEFT WIN!", color);
+        }
+    }
 }

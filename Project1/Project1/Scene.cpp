@@ -80,7 +80,7 @@ VOID DrawStartMenu(SelectMenu selectedItem,int frameCount)
 VOID DrawGame(BALL& ball,PADDLE& leftpaddle,PADDLE& rightpaddle,SCORE& leftScore,SCORE& rightScore)
 {
 
-	TimeCount();
+	TimeCount(leftScore.points, rightScore.points,CountFps);
 
 	UpdateBall(ball, WINDOW_WIDTH, WINDOW_HEIGHT, leftScore, rightScore);
 	UpdatePaddle(leftpaddle, KEY_INPUT_W, KEY_INPUT_S, WINDOW_HEIGHT);

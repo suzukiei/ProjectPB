@@ -11,7 +11,7 @@ extern float CalcFps;
 
 VOID MY_FPS_UPDATE(VOID);
 VOID MY_FPS_WAIT(VOID);
-VOID TimeCount(VOID);
+VOID TimeCount(const int leftscore,const int rightscore,int framecount);
 
 ////--------経過時間カウントクラス--------
 //class TIME_COUNT
