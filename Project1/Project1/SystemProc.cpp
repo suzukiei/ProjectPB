@@ -1,9 +1,10 @@
 #include "Dxlib.h"
 #include "Proc.h"
 #include "score.h"
+#include "Scene.h"
 
 const int SampleNumFps = 60;
-const int DURATION = 10;
+const int DURATION = 120;
 int CountFps = 0;
 int StartTimeFps = 0;
 float CalcFps = 0.0f;
@@ -58,6 +59,8 @@ VOID TimeCount(const int leftscore, const int rightscore,int framecount)
     if (keikaTime > DURATION)
     {
         int color = (framecount / 30) % 2 == 0 ? GetColor(255, 255, 255) : GetColor(0, 0, 0);
+
+        IsEND = TRUE;
 
         if (leftscore < rightscore)
         {

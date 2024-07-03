@@ -10,6 +10,7 @@
 
 
 int NowScene = inMenu;
+BOOL IsEND = FALSE;
 SCORE leftScore, rightScore;
 BALL ball;
 PADDLE leftpaddle, rightpaddle;

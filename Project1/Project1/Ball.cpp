@@ -2,6 +2,7 @@
 #include "bll.h"
 #include "score.h"
 #include "Sounds.h"
+#include "Scene.h"
 
 BOOL VXVY;
 
@@ -34,36 +35,39 @@ VOID InitBall(BALL& ball,int startx,int starty,int startVx,int startVy,int radiu
 //ボールと壁の判定
 VOID UpdateBall(BALL& ball, int screenWidth, int screenHeight,SCORE& leftScore,SCORE& rightScore)
 {
-	ball.x += ball.vx;
-	ball.y += ball.vy;
-	
-	// 壁に衝突した場合の反射、そして速度をリセットする
-	if (ball.x - ball.radius < 0 || ball.x + ball.radius > screenWidth) {
-		
-		ball.vx = -ball.vx;
-		
-		SE_Score();
+	if (!IsEND)
+	{
+		ball.x += ball.vx;
+		ball.y += ball.vy;
 
-		if (ball.x - ball.radius < 0)
-		{
-			rightScore.points += 1;
-			ball.vx = 5;
-			ball.vy = (ball.vy > 0 ? 5 : -5);
-			
-		}
-		else if (ball.x + ball.radius > screenWidth)
-		{
-			leftScore.points += 1;
-			ball.vx = -5;
-			ball.vy = (ball.vy > 0 ? 5 : -5);
-			
+		// 壁に衝突した場合の反射、そして速度をリセットする
+		if (ball.x - ball.radius < 0 || ball.x + ball.radius > screenWidth) {
 
+			ball.vx = -ball.vx;
+
+			SE_Score();
+
+			if (ball.x - ball.radius < 0)
+			{
+				rightScore.points += 1;
+				ball.vx = 5;
+				ball.vy = (ball.vy > 0 ? 5 : -5);
+
+			}
+			else if (ball.x + ball.radius > screenWidth)
+			{
+				leftScore.points += 1;
+				ball.vx = -5;
+				ball.vy = (ball.vy > 0 ? 5 : -5);
+
+
+			}
 		}
-	}
-	if (ball.y - ball.radius < 0 || ball.y + ball.radius > screenHeight) {
-		
-		
-		ball.vy = -ball.vy;
+		if (ball.y - ball.radius < 0 || ball.y + ball.radius > screenHeight) {
+
+
+			ball.vy = -ball.vy;
+		}
 	}
 
 	return;
